@@ -1,0 +1,67 @@
+<h1>Housing Loan Calculator</h1>
+
+<form>
+  <mat-form-field appearence="outline">
+    <mat-label for="InterestRateText"> Interest Rate:</mat-label>
+    <input matInput name="InterestRateText" [(ngModel)]="interestRate" readonly />
+  </mat-form-field>
+
+  <mat-form-field appearence="outline">
+    <mat-label for="BorrowedText"> Borrow Amount (€):</mat-label>
+    <input matInput name="BorrowedText" [(ngModel)]="loanData.LoanUser.BorrowedPrincipal" />
+  </mat-form-field>
+
+  <mat-form-field appearence="outline">
+    <mat-label for="YearsText"> Years:</mat-label>
+    <input matInput name="YearsText" [(ngModel)]="loanData.LoanUser.Years" />
+  </mat-form-field>
+
+</form>
+
+
+<button mat-raised-button color="primary" (click)="Simulate_Credit()">Simulate</button>
+
+<div>
+  <!--- *ngIf="loanData.LoanSimulation?.length">  -->
+
+  <mat-table #table [dataSource]="loanData.LoanSimulation">
+
+    <!-- Period Column -->
+    <ng-container matColumnDef="Period">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Period}} </mat-cell>
+    </ng-container>
+
+    <!-- Remaining Column -->
+    <ng-container matColumnDef="Remaining">
+      <mat-header-cell *matHeaderCellDef> Remaining </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.TotalPayment}} </mat-cell>
+    </ng-container>
+
+    <!-- Interest Column -->
+    <ng-container matColumnDef="Interest">
+      <mat-header-cell *matHeaderCellDef> Interest </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Interest}} </mat-cell>
+    </ng-container>
+
+    <!-- Capital Column -->
+    <ng-container matColumnDef="Capital">
+      <mat-header-cell *matHeaderCellDef> Capital </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Capital}} </mat-cell>
+    </ng-container>
+
+    <!-- Residual Column -->
+    <ng-container matColumnDef="Residual">
+      <mat-header-cell *matHeaderCellDef> Residual </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Residual}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+
+
+</div>
+
+
